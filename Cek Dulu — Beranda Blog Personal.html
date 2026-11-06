@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cek Dulu — Ruang Klarifikasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#12302a;--teal:#2b5953;--sage:#a8b79e;--brown:#6a4733;--beige:#e3d4ba;--cream:#f6f0e2;--gold:#c4a25a;
+  --paper:#f6f0e2;--ink:#1d2b26;--ink-soft:#4d5a52;--card:#fbf7ec;--line:rgba(29,43,38,.14);
+  --sh:0 1px 0 rgba(255,255,255,.55) inset,0 18px 34px -16px rgba(40,30,15,.38),0 4px 10px rgba(40,30,15,.08);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--body:"Instrument Sans",system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0f1f1b;--ink:#ece4d2;--ink-soft:#b5bdae;--card:#173029;--line:rgba(236,228,210,.16);--sh:0 1px 0 rgba(255,255,255,.07) inset,0 18px 34px -16px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--paper:#0f1f1b;--ink:#ece4d2;--ink-soft:#b5bdae;--card:#173029;--line:rgba(236,228,210,.16);--sh:0 1px 0 rgba(255,255,255,.07) inset,0 18px 34px -16px rgba(0,0,0,.6)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.7 var(--body);-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .9 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.02em}
+.wrap{width:min(1160px,100% - 2.5rem);margin-inline:auto}
+
+/* top bar + hero */
+.hero{background:radial-gradient(120% 90% at 78% 30%,#2f6159 0%,var(--teal) 28%,var(--forest) 72%);color:var(--cream);position:relative;padding-bottom:7.5rem;border-radius:0 0 3rem 3rem}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0}
+.logo{font:800 1.35rem var(--display);text-decoration:none;letter-spacing:-.03em}
+.logo i{display:inline-block;width:.7rem;height:.7rem;border-radius:50% 0 50% 50%;background:var(--gold);margin-right:.5rem;transform:rotate(-20deg)}
+.bar nav{display:flex;gap:1.6rem;font-weight:500;font-size:.95rem}
+.bar nav a{text-decoration:none;opacity:.85;padding:.3rem 0}.bar nav a:hover{opacity:1}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;min-height:540px;padding-top:2rem}
+.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);font-weight:800}
+.hero p.lead{max-width:30rem;font-size:1.15rem;color:#d3dccb;margin:1.4rem 0 2rem}
+.btn{display:inline-block;background:var(--gold);color:#1c2a22;font-weight:600;text-decoration:none;padding:.95rem 1.7rem;border-radius:999px;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 14px 24px -10px rgba(0,0,0,.55);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--cream);box-shadow:none;border:1px solid rgba(246,240,226,.4);margin-left:.6rem}
+.stage{position:relative;height:500px}
+.stage svg.leaves{position:absolute;right:-6%;top:-4%;width:112%;height:112%;overflow:visible;filter:drop-shadow(0 26px 24px rgba(0,0,0,.4))}
+.sample{position:absolute;left:4%;bottom:2%;width:min(330px,82%);background:var(--card);color:var(--ink);border-radius:1.6rem;padding:1.3rem 1.4rem;box-shadow:var(--sh),0 34px 50px -22px rgba(0,0,0,.6);transform:rotate(-2.2deg)}
+.sample small{color:var(--ink-soft);font-size:.8rem}
+.sample q{display:block;font:600 1.1rem/1.35 var(--display);margin:.4rem 0 .9rem;quotes:"“" "”"}
+
+/* verdict chips */
+.chip{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;font-size:.85rem;padding:.3rem .8rem;border-radius:999px;color:#fff;background:var(--c)}
+.chip::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:#fff;opacity:.9}
+.v-benar{--c:#2f6b46}.v-salah{--c:#99392d}.v-sesat{--c:#9c5e17}.v-konteks{--c:#35646d}.v-belum{--c:#646658}
+
+/* nav panel */
+.panel{position:relative;z-index:5;margin-top:-5.2rem;border-radius:2rem;padding:1.6rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;
+  background:linear-gradient(160deg,rgba(24,64,56,.92),rgba(14,40,35,.95));color:var(--cream);border:1px solid rgba(246,240,226,.16);
+  box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 30px 50px -24px rgba(0,0,0,.65);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.panel a{display:flex;gap:.9rem;align-items:flex-start;padding:1rem;border-radius:1.2rem;text-decoration:none}
+.panel a:hover{background:rgba(246,240,226,.08)}
+.panel svg{flex:none;width:34px;height:34px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.panel b{display:block;font:700 1.02rem var(--display)}
+.panel span{font-size:.86rem;color:#bccab9;line-height:1.45;display:block;margin-top:.15rem}
+
+/* grid */
+section.block{padding:5rem 0 1rem}
+.head{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.head h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700}
+.head p{margin:0;max-width:26rem;color:var(--ink-soft)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.4rem}
+.c{border-radius:2rem;padding:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.c h3{font-size:1.5rem;margin:.7rem 0 .5rem}
+.c p{margin:0;font-size:.98rem}
+.c .more{display:inline-block;margin-top:1.1rem;font-weight:600;text-decoration:none;border-bottom:2px solid var(--gold)}
+.feat{grid-column:span 7;grid-row:span 2;background:linear-gradient(155deg,#7a523c,var(--brown) 55%,#523625);color:var(--cream);min-height:420px;display:flex;flex-direction:column;justify-content:flex-end}
+.feat h3{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+.feat .meta{font-size:.85rem;color:#e0cdb4;margin-top:1rem}
+.feat svg{position:absolute;right:-30px;top:-20px;width:300px;opacity:.5}
+.sage{grid-column:span 5;background:linear-gradient(160deg,#bccab2,var(--sage));color:#1b2a22}
+.pic{grid-column:span 5;min-height:230px;color:#fff;display:flex;align-items:flex-end;
+  background:linear-gradient(0deg,rgba(10,30,25,.78),rgba(10,30,25,0) 60%),radial-gradient(90% 70% at 30% 20%,#5d8a74,#2b5953 60%,#173b34)}
+.icon{grid-column:span 4;background:var(--beige);color:#2a2418;transform:translateY(0)}
+.icon svg{width:44px;height:44px;stroke:var(--brown);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.flat{grid-column:span 4;background:var(--card);border:1px solid var(--line);box-shadow:none}
+.dark{grid-column:span 4;background:linear-gradient(160deg,var(--teal),var(--forest));color:var(--cream)}
+.legend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+
+/* footer */
+footer{margin-top:6rem;background:var(--forest);color:#cfd9c9;border-radius:3rem 3rem 0 0;padding:3.5rem 0 2.5rem}
+footer .cols{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer h2{font-size:1.8rem;color:var(--cream)}
+footer ul{list-style:none;margin:0;padding:0;display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.95rem}
+footer small{display:block;margin-top:2rem;color:#93a592;max-width:44rem}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;min-height:0}
+  .stage{height:380px;margin-top:-.5rem}
+  .panel{grid-template-columns:1fr 1fr}
+  .feat,.sage,.pic,.icon,.flat,.dark{grid-column:1 / -1}
+  .bar nav{display:none}
+}
+@media (max-width:700px){
+  .panel{-webkit-backdrop-filter:none;backdrop-filter:none;grid-template-columns:1fr}
+  .hero{border-radius:0 0 2rem 2rem;padding-bottom:6.5rem}
+  .btn.ghost{margin:.7rem 0 0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#"><i></i>Cek Dulu</a>
+      <nav aria-label="Menu utama">
+        <a href="#klarifikasi">Ruang Klarifikasi</a><a href="#metode">Metodologi</a><a href="#tentang">Tentang</a><a href="#kontak">Kontak</a>
+      </nav>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1>Cek dulu,<br>baru percaya.</h1>
+        <p class="lead">Isu ramai di media sosial dibedah satu per satu: klaimnya, buktinya, dan konteks yang hilang. Setiap sumber bisa kamu telusuri sendiri.</p>
+        <a class="btn" href="#klarifikasi">Baca Ruang Klarifikasi</a><a class="btn ghost" href="#metode">Lihat cara kerjanya</a>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <svg class="leaves" viewBox="0 0 520 520">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ea98f"/><stop offset=".55" stop-color="#3d7566"/><stop offset="1" stop-color="#1c4a40"/></linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b3c4a0"/><stop offset="1" stop-color="#5f8461"/></linearGradient>
+            <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6247"/><stop offset="1" stop-color="#4b3023"/></linearGradient>
+            <g id="leaf"><path d="M0 0C30-78 160-104 250-44 228 58 96 82 0 0Z"/><path d="M6 0C80-12 160-22 238-42" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="3"/></g>
+          </defs>
+          <circle cx="330" cy="250" r="190" fill="url(#g3)" opacity=".9"/>
+          <use href="#leaf" fill="url(#g1)" transform="translate(120 430) rotate(-62) scale(1.25)"/>
+          <use href="#leaf" fill="url(#g2)" transform="translate(150 450) rotate(-18) scale(1.05)"/>
+          <use href="#leaf" fill="url(#g1)" transform="translate(240 470) rotate(-100) scale(1.1)"/>
+          <use href="#leaf" fill="url(#g2)" transform="translate(300 300) rotate(-140) scale(.8)"/>
+          <circle cx="440" cy="110" r="14" fill="#c4a25a"/>
+        </svg>
+        <div class="sample" style="animation:none">
+          <small>Contoh tampilan kartu klarifikasi</small>
+          <q>Minum air lemon tiap pagi menyembuhkan semua penyakit</q>
+          <span class="chip v-sesat">Menyesatkan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="panel" aria-label="Bagian situs">
+    <a href="#klarifikasi"><svg viewBox="0 0 34 34"><circle cx="15" cy="15" r="8"/><path d="m21 21 8 8M12 15l2.5 2.5L19 12"/></svg><div><b>Ruang Klarifikasi</b><span>Klaim viral, bukti, dan verdict</span></div></a>
+    <a href="#analisis"><svg viewBox="0 0 34 34"><path d="M5 27V7M5 27h24M10 21l6-7 5 4 7-9"/></svg><div><b>Analisis &amp; Opini</b><span>Sudut pandang, diberi label jelas</span></div></a>
+    <a href="#metode"><svg viewBox="0 0 34 34"><path d="M8 5h14l5 5v19H8zM22 5v5h5M13 17h9M13 22h9"/></svg><div><b>Catatan Metode</b><span>Cara memeriksa foto, video, sumber</span></div></a>
+    <a href="#tentang"><svg viewBox="0 0 34 34"><circle cx="17" cy="12" r="5"/><path d="M7 29c1-6 5-9 10-9s9 3 10 9"/></svg><div><b>Profil &amp; Portofolio</b><span>Siapa penulisnya, apa karyanya</span></div></a>
+  </nav>
+
+  <section class="block" id="klarifikasi">
+    <div class="head">
+      <h2>Terbaru dari Ruang Klarifikasi</h2>
+      <p>Satu artikel mendalam setiap satu sampai dua minggu. Kualitas pemeriksaan lebih penting daripada jumlah.</p>
+    </div>
+    <div class="grid">
+      <article class="c feat">
+        <svg viewBox="0 0 300 200" aria-hidden="true"><use href="#leaf" fill="#c4a25a" transform="translate(30 150) rotate(-30)"/></svg>
+        <span class="chip v-konteks" style="align-self:flex-start">Perlu Konteks</span>
+        <h3>Judul artikel klarifikasi unggulan tampil di sini</h3>
+        <p>Ringkasan satu atau dua kalimat: klaim apa yang beredar, dan apa yang ditemukan saat dicek ke sumber primer.</p>
+        <div class="meta">Diperiksa 30 Okt 2026 · 8 sumber tertaut · Diperbarui 1 kali</div>
+        <a class="more" href="#" style="align-self:flex-start">Baca pemeriksaannya</a>
+      </article>
+
+      <article class="c sage" id="metode">
+        <h3>Metodologi</h3>
+        <p>Cara memilih isu, urutan sumber (primer dulu, lalu sekunder tepercaya), dan cara menentukan verdict. Semuanya terbuka.</p>
+        <div class="legend" role="list" aria-label="Jenis verdict">
+          <span class="chip v-benar" role="listitem">Benar</span><span class="chip v-salah" role="listitem">Salah</span><span class="chip v-sesat" role="listitem">Menyesatkan</span><span class="chip v-konteks" role="listitem">Perlu Konteks</span><span class="chip v-belum" role="listitem">Belum Bisa Dipastikan</span>
+        </div>
+        <a class="more" href="#">Baca metodologi</a>
+      </article>
+
+      <article class="c pic">
+        <div><span class="chip v-salah">Salah</span><h3>Artikel dengan foto sampul</h3><p>Foto berlisensi atau karya sendiri.</p></div>
+      </article>
+
+      <article class="c icon" id="analisis">
+        <svg viewBox="0 0 44 44"><path d="M8 34V10M8 34h28M14 27l8-9 6 5 8-11"/></svg>
+        <h3>Analisis &amp; Opini</h3><p>Pendapat penulis ditandai terpisah dari fakta yang terverifikasi.</p>
+      </article>
+
+      <article class="c flat">
+        <h3>Catatan Metode</h3><p>Panduan singkat: menelusuri foto dengan pencarian gambar balik, membaca sumber primer, mengenali batas bukti digital.</p>
+        <a class="more" href="#">Pelajari caranya</a>
+      </article>
+
+      <article class="c dark">
+        <h3>Koreksi terbuka</h3><p>Salah atau ada data baru? Artikel diperbarui, tanggal dan catatannya tampil di halaman.</p>
+        <a class="more" href="#kontak">Kirim koreksi</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer id="tentang">
+  <div class="wrap">
+    <div class="cols" id="kontak">
+      <div><h2>Cek Dulu</h2><p style="max-width:26rem">Blog personal tentang membaca isu viral dengan bukti. Nama blog ini masih sementara.</p></div>
+      <ul aria-label="Halaman penting"><li><a href="#">Tentang</a></li><li><a href="#">Kontak</a></li><li><a href="#">Metodologi</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Disclaimer</a></li></ul>
+    </div>
+    <small>Isi di halaman ini adalah contoh tata letak. Setiap artikel nyata akan mencantumkan sumber, verdict, batasan pemeriksaan, dan riwayat pembaruan.</small>
+  </div>
+</footer>
+</body>
+</html>
